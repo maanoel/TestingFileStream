@@ -52,12 +52,26 @@ namespace FileTesting
       StreamWriter streamWriter = new StreamWriter(saida);
       streamWriter.Close();
 
+
       StreamWriter streamWriter2 = new StreamWriter(fileName + "2");
       streamWriter2.WriteLine("Testando");
       streamWriter2.WriteLine("Testand2");
       streamWriter2.Close();
 
+      //O bloco using irá fazer o gerenciamento do arquivo, sem precisarmos por exemplo,
+      //ter que utilizar o close para leitura
+      using (StreamWriter streamWriter3 = new StreamWriter(fileName + "2"))
+      {
+        streamWriter3.WriteLine("Testando novamente");
+        streamWriter3.WriteLine("aqui nem precisa fechar");
+      }
 
+      //O using fecha até quando exceção é lançada
+      using (StreamWriter streamWriter4 = new StreamWriter(fileName + "2"))
+      {
+        streamWriter4.WriteLine("Tanto que quando escrever uma linha aqui");
+        streamWriter4.WriteLine("Eu consigo, mesmo com o streamwriter3 não ter sido fechado com o close");
+      }
     }
   }
 }
